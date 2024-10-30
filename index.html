@@ -15,27 +15,49 @@
                 Quiz Question
             </h2>
             <hr>
-            <ul>
-                <li>
-                    <input type="radio" name="answer" class="answer" id="a" />
-                    <label for="a" id="option-1">Quiz Option</label>
-                </li>
-                <li>
-                    <input type="radio" name="answer" class="answer" id="b" />
-                    <label for="b" id="option-2">Quiz Option</label>
-                </li>
-                <li>
-                    <input type="radio" name="answer" class="answer" id="c" />
-                    <label for="c" id="option-3">Quiz Option</label>
-                </li>
-                <li>
-                    <input type="radio" name="answer" class="answer" id="d" />
-                    <label for="d" id="option-4">Quiz Option</label>
-                </li>
-            </ul>
+            <div class="question-score-box">
+                <ul>
+                    <li>
+                        <input type="radio" name="answer" class="answer" id="a" />
+                        <label for="a" id="option-1">Quiz Option</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" class="answer" id="b" />
+                        <label for="b" id="option-2">Quiz Option</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" class="answer" id="c" />
+                        <label for="c" id="option-3">Quiz Option</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" class="answer" id="d" />
+                        <label for="d" id="option-4">Quiz Option</label>
+                    </li>
+                </ul>
+                <ul class="show-score-attempt-questions-box">
+                    <li>
+                        <h6>
+                            Your Score : - <span class="score-li"> 0</span>
+                        </h6>
+                    </li>
+                    <li>
+                        <h6>
+                            Total View Question : - <span class="score-li"> 0</span>
+                        </h6>
+                    </li>
+                    <li>
+                        <h6>
+                            Total Attempt Questions : -
+                            <span class="attempt-questions-li"> 0</span>
+                        </h6>
+                    </li>
+                </ul>
+            </div>
             <hr>
             <div class="btn-box">
                 <button id="submit" type="submit">Submit</button>
+                <button id="next-btn" type="submit">Next</button>
+                <button id="exit-btn" type="submit">Exit</button>
             </div>
         </div>
     </div>
