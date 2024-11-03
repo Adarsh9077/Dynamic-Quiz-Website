@@ -4,15 +4,17 @@ fetch("js/quizQuestion.js")
   .then((data) => {
     // Execute the script to have access to `quizQuestion`
     eval(data); // Be cautious when using eval, make sure it's trusted content
-    // console.log(quizQuestion.length)
     const answerElement = document.querySelectorAll(".answer");
+    const quiz = document.querySelector(".quiz");
     const [questionElement, option_1, option_2, option_3, option_4] =
       document.querySelectorAll(
         "#question,#option1,#option2,#option3,#option4"
       );
 
     const submitBtn = document.querySelector("#submit");
-
+    const nextBtn = document.querySelector("#next-btn");
+    const exitBtn = document.querySelector("#exit-btn");
+    let attemptedQuestionCounter = 0;
     let lenghtofArrOfObject = quizQuestion.length;
     let arr = [];
     let score = 0;
@@ -20,9 +22,9 @@ fetch("js/quizQuestion.js")
     const attempedQuestionsElm = document.querySelector(
       ".attempt-questions-li"
     );
+    const veiwQuestions = document.querySelector(".view-questions-li");
     let currentQuiz = Math.floor(Math.random() * lenghtofArrOfObject) + 1;
     arr.push(currentQuiz);
-    console.log(arr);
 
     const searchNumberUsingBinarySearch = (number) => {
       let left = 0;
@@ -44,10 +46,6 @@ fetch("js/quizQuestion.js")
 
       if (found) {
         // Number already exists in arr, so generate a new question
-        console.log(
-          "object ",
-          " Number already exists in arr, so generate a new question"
-        );
         randomQuestions();
       } else {
         // Insert number in sorted order
@@ -61,54 +59,30 @@ fetch("js/quizQuestion.js")
       let number = Math.floor(Math.random() * lenghtofArrOfObject) + 1;
       if (number === currentQuiz) {
         randomNumberGenrator();
-        console.log("randomNumberGenrator in if condition");
       }
-      console.log("randomNumberGenrator in before return");
       return number;
     };
     function randomQuestions() {
       let randomNo = randomNumberGenrator();
       if (arr.length == 1) {
-        console.log(
-          "randomQuestions if (arr.length == 1) ",
-          randomNo,
-          " ",
-          arr[0]
-        );
         if (randomNo > arr[0]) {
-          console.log(
-            "randomQuestions if (randomNo > arr[0]) ",
-            randomNo,
-            " arr -> ",
-            arr
-          );
           arr.push(randomNo);
           currentQuiz = randomNo;
           loadQuiz();
         } else {
-          console.log(
-            " randomQuestions else (randomNo < arr[0]) random number --> ",
-            randomNo,
-            " arr --> ",
-            arr
-          );
           arr.unshift(randomNo);
-          console.log(arr);
           currentQuiz = randomNo;
           loadQuiz();
         }
       } else {
-        console.log("randomQuestions else (arr.length != 1)");
         searchNumberUsingBinarySearch(randomNo);
       }
     }
     const loadQuiz = () => {
       scoreElm.innerText = score;
-      attempedQuestionsElm.innerText = arr.length
-      console.log(quizQuestion[currentQuiz].correct);
-      console.log(arr, " in load function");
+      veiwQuestions.innerText = arr.length;
+      console.log(quizQuestion[currentQuiz].correct+1);
       const { question, options } = quizQuestion[currentQuiz];
-      // console.log(options[0]);
       questionElement.innerHTML = question;
 
       options.forEach((curOption, index) => {
@@ -125,12 +99,12 @@ fetch("js/quizQuestion.js")
       return answerElement.forEach((curElm) => (curElm.checked = false));
     };
     submitBtn.addEventListener("click", () => {
-      console.log("object");
+      attemptedQuestionCounter++;
+      attempedQuestionsElm.innerHTML = attemptedQuestionCounter;
       const selectedOptionIndex = getSelectedOption();
 
       if (selectedOptionIndex === quizQuestion[currentQuiz].correct) {
         score++;
-        console.log(score, "\n");
       }
       if (currentQuiz < quizQuestion.length) {
         // currentQuiz++;
@@ -138,6 +112,17 @@ fetch("js/quizQuestion.js")
         randomQuestions();
         // loadQuiz();
       }
+    });
+    nextBtn.addEventListener("click", () => {
+      // veiwQuestions
+      randomQuestions();
+    });
+    exitBtn.addEventListener("click", () => {
+      quiz.innerHTML = `<div class= "result"> 
+      <h2> Your Score : ${score}/${arr.length} Correct Answer </h2>
+      <p>Congratulations on completing the quiz! 🎉🎊</p> 
+      <button class="reload-btn" onclick="location.reload()">Play Again ➿</button>
+      </div>`;
     });
   })
   .catch((error) => {

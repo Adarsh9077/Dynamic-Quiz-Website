@@ -9,13 +9,10 @@
 }
 
 body {
-    width: 100%;
+    /* width: 100%; */
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
     background: linear-gradient(to right, #7090e7, #8ec5fc);
-
 }
 
 .quiz-section {
@@ -26,11 +23,11 @@ body {
 }
 
 .quiz {
-    width: 60%;
-    /* background-color: #7090e7, #8ec5fc; */
+    width: 75%;
     background-color: #FFF;
     border-radius: 2rem;
     padding: 1rem;
+    height: 100%;
 }
 
 .quiz h2 {
@@ -111,18 +108,14 @@ button {
 }
 
 .result {
-    width: 100%;
     height: auto;
-    padding: 5rem;
+    padding: 8rem 0.2rem;
     background-color: #FFF;
-    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
     display: flex;
     flex-direction: column;
     gap: 2.4rem;
     align-items: center;
 }
-
-
 
 .result h2 {
     font-size: 2.8rem;
